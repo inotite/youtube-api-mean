@@ -1,0 +1,57 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Users</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!--<mat-list [@listAnimation]="prepareListState()" [@.disabled]="animationsDisabled">-->
+      <mat-list>
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+   
+          <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+          
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+          </ng-container>
+          
+          <!-- Name Column -->
+          <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+          </ng-container>
+          
+          <!-- Weight Column -->
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+          </ng-container>
+          
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="password">
+            <mat-header-cell *matHeaderCellDef> Password </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.password}} </mat-cell>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="roles">
+            <mat-header-cell *matHeaderCellDef> Roles </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.roles}} </mat-cell>
+          </ng-container>
+          
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>

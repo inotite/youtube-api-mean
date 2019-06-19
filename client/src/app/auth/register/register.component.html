@@ -1,0 +1,57 @@
+<div class="container">
+	<div class="card-wrapper">
+		<mat-card class="mat-elevation-z1">
+			<mat-card-header>
+				<mat-card-title>
+					<h2>Register</h2>
+				</mat-card-title>
+			</mat-card-header>
+			<form [formGroup]="registerForm">
+				<mat-card-content>
+					<mat-form-field>
+						<input formControlName="email"
+						       matInput
+						       name="email"
+						       placeholder="Email address"
+						       type="email">
+					</mat-form-field>
+					<mat-form-field>
+						<input formControlName="phone"
+						       matInput
+						       name="phone"
+						       placeholder="Phone number"
+						       type="text">
+					</mat-form-field>
+					<mat-form-field>
+						<input formControlName="username"
+						       matInput
+						       name="username"
+						       placeholder="Username"
+						       type="text">
+					</mat-form-field>
+					<mat-form-field>
+						<input formControlName="password"
+						       matInput
+						       name="password"
+						       placeholder="Password"
+						       type="password">
+					</mat-form-field>
+				</mat-card-content>
+				<mat-card-actions>
+					<button (click)="onRegister($event)"
+					        [disabled]="registerForm.invalid || pending"
+					        color="primary"
+					        mat-raised-button
+					        type="button">Register
+					</button>
+					<button (click)="onCancel($event)"
+					        color="primary"
+					        mat-raised-button
+					        type="button">Cancel
+					</button>
+				</mat-card-actions>
+			</form>
+			<div *ngIf="error">{{ error }}</div>
+		</mat-card>
+	</div>
+</div>
