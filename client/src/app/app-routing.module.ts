@@ -41,11 +41,6 @@ const routes: Routes = [
         loadChildren: "./user/user.module#UserModule",
         canActivate: [AuthRouteGuard]
     },
-    {
-        path: appRoutePaths.beer,
-        loadChildren: "./beer/beer.module#BeerModule",
-        canActivate: [AuthRouteGuard]
-    },
 
     //////////////////////////////////////////////////
     // Redirects
@@ -53,7 +48,7 @@ const routes: Routes = [
     {
         path: "**",
         pathMatch: "full",
-        redirectTo: appRoutePaths.beer
+        redirectTo: appRoutePaths.user
     }
 ];
 

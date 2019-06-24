@@ -8,7 +8,9 @@
         <!--in here all the content must reside. We will add a navigation header as well-->
         <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
         <main>
-          <router-outlet></router-outlet>
+          <div class="container">
+            <router-outlet></router-outlet>
+          </div>
         </main>
       </mat-sidenav-content>
     </mat-sidenav-container>

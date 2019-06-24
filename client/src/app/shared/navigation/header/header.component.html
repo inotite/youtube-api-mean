@@ -5,16 +5,16 @@
       </button>
   </div>
   <div>
-      <a routerLink="/beer">Project Mangement System</a>
+      <a routerLink="/video">Project Mangement System</a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
       <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-          <li>
-              <a routerLink="/owner">Owner Actions</a>
-          </li>
-          <li>
-              <a routerLink="/account">Account Actions</a>
-          </li>
+        <li>
+            <a [routerLink]="['/user']">Users</a>
+        </li>
+        <li>
+            <a [routerLink]="['/video']">Project</a>
+        </li>
       </ul>
   </div>
 </mat-toolbar>

@@ -25,7 +25,9 @@ export interface UserState extends EntityState<User> {
  * a sortComparer option which is set to a compare
  * function if the records are to be sorted.
  */
-export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
+export const adapter: EntityAdapter<User> = createEntityAdapter<User>({
+    selectId: (user: User) => user._id,
+});
 
 /**
  * getInitialState returns the default initial state
@@ -40,6 +42,7 @@ export const initialState: UserState = adapter.getInitialState({
 export function userReducer(state = initialState, action: UserActions): UserState {
     switch (action.type) {
         case UserActionTypes.Select: {
+            console.log("reducer: ", action.payload);
             return Object.assign({}, state, { selectedUserId: action.payload });
         }
 
@@ -47,16 +50,31 @@ export function userReducer(state = initialState, action: UserActions): UserStat
             return adapter.addAll(action.payload, state);
         }
 
-        case UserActionTypes.Add: {
+        // case UserActionTypes.Add: {
+        //     // return adapter.addOne(action.payload, state);
+        // }
+
+        case UserActionTypes.SelectCurrentUser: {
+            return {
+              ...state,
+              selectedUserId: action.payload
+            };
+          }
+
+        case UserActionTypes.SelectSuccess: {
             return adapter.addOne(action.payload, state);
         }
 
-        case UserActionTypes.Update: {
+        // case UserActionTypes.Update: {
+        //     // return adapter.upsertOne(action.payload, state);
+        // }
+
+        case UserActionTypes.UpdateSuccess: {
             return adapter.upsertOne(action.payload, state);
         }
 
-        case UserActionTypes.Delete: {
-            return adapter.removeOne(action.payload._id, state);
+        case UserActionTypes.DeleteSuccess: {
+            return adapter.removeOne(action.payload, state);
         }
 
         default:

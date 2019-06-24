@@ -6,6 +6,7 @@
     </mat-card-header>
     <mat-card-content>
       <!--<mat-list [@listAnimation]="prepareListState()" [@.disabled]="animationsDisabled">-->
+      <button mat-raised-button color="primary" type="button" (click)="onAddUser($event)">Add User</button>
       <mat-list>
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
    
@@ -15,7 +16,7 @@
           <!-- Position Column -->
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            <mat-cell *matCellDef="let element; let i = index"> {{i+1}} </mat-cell>
           </ng-container>
           
           <!-- Name Column -->
@@ -46,6 +47,30 @@
           <ng-container matColumnDef="roles">
             <mat-header-cell *matHeaderCellDef> Roles </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.roles}} </mat-cell>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="created_at">
+            <mat-header-cell *matHeaderCellDef> Created At </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.created_at}} </mat-cell>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="control">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <span class="float-right">
+                <button mat-icon-button color="primary" (click)="showDetails(element)" aria-label="icon-button with a list icon">
+                  <mat-icon>list</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" (click)="editUser(element)" aria-label="icon-button with a edit icon">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteUser(element)" color="warn" aria-label="icon-button with a delete icon">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </span>
+            </mat-cell>
           </ng-container>
           
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

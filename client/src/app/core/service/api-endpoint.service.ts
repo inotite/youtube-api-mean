@@ -38,8 +38,9 @@ export class ApiEndpointService {
         REGISTER: `${ApiEndpointService.AUTH_CONTEXT}register/`,
         BEER: "beer/",
         VIDEO: "video/",
+        VIDEOS: "videos/",
         USERS: "users/",
-        USER: "user/"
+        USER: "user/",
     };
 
     /**

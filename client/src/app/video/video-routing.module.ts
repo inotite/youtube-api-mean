@@ -3,11 +3,15 @@ import {
     RouterModule,
     Routes
 } from "@angular/router";
-import { VideoListContainer } from "./video-list.container";
+import { VideoListContainer } from "./video-list/video-list.container";
 
 const routes: Routes = [
     {
         path: "",
+        component: VideoListContainer
+    },
+    {
+        path: "new",
         component: VideoListContainer
     }
 ];

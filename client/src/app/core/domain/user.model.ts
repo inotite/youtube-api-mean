@@ -4,7 +4,8 @@ export interface User {
     email: string;
     password: string;
     phone: string;
-    roles: Array<string>;
+    role: string;
+    created_at: string;
 }
 
 export const defaultUser: User = {
@@ -13,5 +14,10 @@ export const defaultUser: User = {
     email: "",
     password: "",
     phone: "",
-    roles: ["USER"]
+    role: "USER",
+    created_at: "",
 };
+
+export interface UserResponse extends User {
+    error_message: string;
+}

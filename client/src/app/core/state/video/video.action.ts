@@ -10,6 +10,8 @@ export enum VideoActionTypes {
     Add = "[Video] Add",
     Update = "[Video] Update",
     Delete = "[Video] Delete",
+
+    NavigateToAdd = "[Video] NavigateToAdd",
 }
 
 export class GetVideos implements Action {
@@ -61,6 +63,13 @@ export class Delete implements Action {
     }
 }
 
+export class NavigateToAdd implements Action {
+    readonly type = VideoActionTypes.NavigateToAdd;
+
+    constructor() {
+    }
+}
+
 export type VideoActions =
     | GetVideos
     | GetVideosSuccess
@@ -69,4 +78,5 @@ export type VideoActions =
     | Add
     | Update
     | Delete
+    | NavigateToAdd
     ;

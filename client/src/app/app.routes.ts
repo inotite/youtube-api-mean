@@ -3,5 +3,7 @@ export const appRoutePaths = {
     register: "register",
     beer: "beer",
     video: "video",
-    user: "user"
+    video_add: "video/new",
+    user: "user",
+    user_add: "user/new"
 };

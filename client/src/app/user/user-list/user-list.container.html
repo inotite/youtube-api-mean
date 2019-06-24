@@ -1,3 +1,6 @@
-<blog-user-list [users]="users$" title="Users">
+<blog-user-list [users]="users$" title="Users" (addUser)="addUser($event)"
+                (edit)="editUser($event)"
+                (show)="showUser($event)"
+                (remove)="deleteUser($event)">
     
 </blog-user-list>

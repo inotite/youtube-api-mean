@@ -1,0 +1,36 @@
+
+
+<div class="contact-details-container" *ngIf="user">
+
+    <div class="card">
+      <div class="card-header">
+        User
+      </div>
+      <div class="card-body">
+        <table>
+          <tr>
+            <td>Username:</td>
+            <td>{{user.username}}</td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td>{{user.email}}</td>
+          </tr>
+          <tr>
+            <td>Phone number:</td>
+            <td>{{user.phone}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="card-footer text-muted">
+        <span class="float-md-right ">
+          <button (click)="edit.emit(user)" class="btn btn-sm btn-outline-primary"> EDIT</button>
+          <button (click)="remove.emit(user)" class="btn btn-sm btn-outline-danger"> DELETE</button>
+        </span>
+  
+      </div>
+    </div>
+  
+  </div>
+  
+  

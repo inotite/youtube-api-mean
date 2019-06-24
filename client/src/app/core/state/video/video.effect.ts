@@ -16,16 +16,14 @@ import {
 import {
     catchError,
     exhaustMap,
-    map
+    map,
+    mergeMap
 } from "rxjs/operators";
 import { Video } from "../../domain/video.model";
 import { VideoService } from "../../service/video.service";
-import {
-    VideoActionTypes,
-    GetVideos,
-    GetVideosFault,
-    GetVideosSuccess
-} from "./video.action";
+import * as VideoActions from "./video.action";
+import * as RouterActions from "../router/router.action";
+import { appRoutePaths } from "../../../app.routes";
 
 @Injectable()
 export class VideoEffect {
@@ -34,13 +32,27 @@ export class VideoEffect {
      */
     @Effect()
     getVideos$: Observable<Action> = this.actions$.pipe(
-        ofType<GetVideos>(VideoActionTypes.GetVideos),
+        ofType<VideoActions.GetVideos>(VideoActions.VideoActionTypes.GetVideos),
         exhaustMap(() =>
             this.videoService.getAll().pipe(
-                map((data: Video[]) => new GetVideosSuccess(data)),
-                catchError((err: HttpErrorResponse) => of(new GetVideosFault(err.message)))
+                map((data: Video[]) => new VideoActions.GetVideosSuccess(data)),
+                catchError((err: HttpErrorResponse) => of(new VideoActions.GetVideosFault(err.message)))
             )
         )
+    );
+
+    /**
+     * Routes the user to the add Video flow.
+     */
+    @Effect()
+    navigateToAdd$: Observable<Action> = this.actions$.pipe(
+        ofType<VideoActions.NavigateToAdd>(VideoActions.VideoActionTypes.NavigateToAdd),
+        mergeMap((action) => {
+            console.log('AB');
+            return [
+                new RouterActions.Go({ path: appRoutePaths.video_add })
+            ];
+        })
     );
 
     /**

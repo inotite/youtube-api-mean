@@ -5,7 +5,7 @@ const config = require("../config.json");
 
 function isAuthHeaderInvalid(req) {
   const authHeader = req.headers.authorization;
-  return !authHeader || authHeader.split(" ")[0] !== "Bearer";
+  return !authHeader || authHeader.split(" ")[0] !== "macOS";
 }
 
 function invalidAuthHeader(res) {
@@ -35,7 +35,6 @@ function verifyToken(token) {
 
 // Return the token value from the request header.
 function getTokenFromHeader(req) {
-  console.log(req.headers.authorization.split(" "));
   var token = JSON.parse(req.headers.authorization.split(" ")[1]).token;
   return token;
 }
@@ -68,7 +67,7 @@ module.exports = {
         invalidToken(res);
       }
     } else {
-      // console.log(`intercept( Don't validate token; either auth API endpoint or not an API endpoint. )`);
+      console.log(`intercept( Don't validate token; either auth API endpoint or not an API endpoint. )`);
       next();
     }
   }

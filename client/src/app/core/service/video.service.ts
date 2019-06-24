@@ -28,7 +28,7 @@ export class VideoService {
    * Requests a list of yummy videos from the API.
    */
   public getAll(): Observable<Video[]> {
-      const url = ApiEndpointService.getEndpoint(ApiEndpointService.ENDPOINT.VIDEO);
+      const url = ApiEndpointService.getEndpoint(ApiEndpointService.ENDPOINT.VIDEOS);
       console.info(`getAll( Getting all videos from API "${url}". )`);
 
       return this.http.get(url).pipe(

@@ -1,0 +1,5 @@
+<app-user-details
+        [user]="user$ | async"
+        (edit)="editUser($event)"
+        (remove)="deleteUser($event)"
+></app-user-details>

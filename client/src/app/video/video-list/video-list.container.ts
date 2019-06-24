@@ -7,18 +7,14 @@ import {
     Store
 } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { Video } from "../core/domain/video.model";
-import * as fromState from "../core/state";
-import * as VideoAction from "../core/state/video/video.action";
+import { Video } from "../../core/domain/video.model";
+import * as fromState from "../../core/state";
+import * as VideoAction from "../../core/state/video/video.action";
+import { Router } from '@angular/router';
 
 @Component({
     selector: "blog-video-list-container",
-    template: `
-	    <blog-video-list
-            [videos]="videos$ | async"
-	    >
-	    </blog-video-list>
-    `
+    templateUrl: "./video-list.container.html"
 })
 export class VideoListContainer implements OnInit {
     /**
@@ -29,7 +25,7 @@ export class VideoListContainer implements OnInit {
     /**
      * Constructor.
      */
-    public constructor(private store$: Store<any>) {
+    public constructor(private store$: Store<any>, private router: Router) {
     }
 
     /**
@@ -38,5 +34,10 @@ export class VideoListContainer implements OnInit {
     public ngOnInit() {
         this.videos$ = this.store$.pipe(select(fromState.selectAllVideo));
         this.store$.dispatch(new VideoAction.GetVideos());
+    }
+
+    public onAddVideo(event$: any) {
+        console.log("VIDEO: Container: onAddVideo()");
+        this.store$.dispatch(new VideoAction.NavigateToAdd());
     }
 }

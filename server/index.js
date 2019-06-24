@@ -20,8 +20,6 @@ mongoose.connect('mongodb://localhost/youtube');
 var db = mongoose.connection;
 mongoose.Promise = Promise;
 
-server.use('/api', apiRoutes);
-
 // Setup express request body parsing.
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
@@ -34,6 +32,8 @@ server.use(authTokenHttpRequestInterceptor.intercept);
 
 // API routes.
 server.use("/api/auth", authController);
+
+server.use('/api', apiRoutes);
 
 // Start the server.
 server.listen(config.port, () => {

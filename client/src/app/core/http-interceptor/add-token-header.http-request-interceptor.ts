@@ -40,7 +40,10 @@ export class AddTokenHeaderHttpRequestInterceptor implements HttpInterceptor {
         if (isApiEndpoint && !isAuthEndpoint) {
             return this.addToken(request).pipe(
                 first(),
-                mergeMap((requestWithToken: HttpRequest<any>) => next.handle(requestWithToken))
+                mergeMap((requestWithToken: HttpRequest<any>) => {
+                    console.log(requestWithToken)
+                    return next.handle(requestWithToken)
+                })
             );
         } else {
             return next.handle(request);
@@ -60,7 +63,8 @@ export class AddTokenHeaderHttpRequestInterceptor implements HttpInterceptor {
             mergeMap((token: string) => {
                 if (token) {
                     request = request.clone({
-                        headers: request.headers.set("Authorization", `Bearer ${token}`),
+                        headers: request.headers.set("Authorization", `macOS ${token}`),
+                        body: request.body,
                         withCredentials: true
                     });
                 } else {

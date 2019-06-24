@@ -25,7 +25,9 @@ export interface VideoState extends EntityState<Video> {
  * a sortComparer option which is set to a compare
  * function if the records are to be sorted.
  */
-export const adapter: EntityAdapter<Video> = createEntityAdapter<Video>();
+export const adapter: EntityAdapter<Video> = createEntityAdapter<Video>({
+    selectId: (video: Video) => video._id
+});
 
 /**
  * getInitialState returns the default initial state
@@ -56,7 +58,7 @@ export function videoReducer(state = initialState, action: VideoActions): VideoS
         }
 
         case VideoActionTypes.Delete: {
-            return adapter.removeOne(action.payload.id, state);
+            return adapter.removeOne(action.payload._id, state);
         }
 
         default:

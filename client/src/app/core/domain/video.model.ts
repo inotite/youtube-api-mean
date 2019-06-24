@@ -1,13 +1,17 @@
 export interface Video {
-    id: string,
+    _id: string,
     name: string;
-    weight: number;
-    symbol: string;
+    snippet: string;
+    contentDetails: string;
+    statistics: string;
+    status: string;
 }
 
 export const defaultVideo: Video = {
-    id: null,
-    name: null,
-    weight: 1,
-    symbol: ""
+    _id: null,
+    name: "",
+    snippet: "",
+    contentDetails: "",
+    statistics: "",
+    status: "",
 };

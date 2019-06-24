@@ -1,104 +1,101 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
+const util = require('../util');
 
 const saltRounds = 10;
 
 // Handle index actions
 exports.index = function (req, res) {
-    User.find(function (err, users) {
-        if (err) {
-            res.json({
-                status: "error",
-                message: err,
-            });
-        }
-        res.json({
-            status: "success",
-            message: "Contacts retrieved successfully",
-            data: users.map( user => ({id: user._id, username: user.username, email: user.email, phone: user.phone, password: user.password, roles: user.roles}))
+    return User.find()
+        .then((users) => {
+            return util.createSuccessResponse( res, users, 200, "Get Users Successfully");
+        })
+        .catch( err => {
+            return util.createErrorResponse( res, 400, err );
         });
-    });
 };
 
 // Handle create user actions
-exports.new = async function (req, res) {
-    await User.findOne({ username: req.body.username }, async function(err, ruser) {
-        if (!ruser) {
-            var user = new User();
-            user.username = req.body.username;
-            user.email = req.body.email;
-            user.phone = req.body.phone;
-            user.roles = req.body.roles.length > 0 ? req.body.roles : user.roles;
+exports.new = function (req, res) {
+    return User.findOne({ username: req.body.username })
+        .then((ruser) => {
+            if (!ruser) {
+                var user = new User();
+                user.username = req.body.username;
+                user.email = req.body.email;
+                user.phone = req.body.phone;
+                user.roles = req.body.role ? req.body.role : user.roles;
 
-            await bcrypt.hash(password, saltRounds, function(err, hash) {
-              // Store hash in your password DB.
-    
-                user.password = hash;
-                console.log(user);
-                user.save(function (err) {
-                    if (err){
-                        console.warn(`Can not save "${req.body.username}"`);
-                        res.json(err);
-                    }
-                    
-                    res.json({
-                        message: 'New user created!',
-                        data: user
+                return bcrypt.hash(req.body.password, saltRounds)
+                    .then((hash) => {
+                        user.password = hash;
+                        return user.save();
+                    })
+                    .then((user) => {
+                        console.log("New user created!");
+                        return util.createSuccessResponse(res, user, 200, "User Created Successfully");
                     });
-                });
-            });
-            return;
-        }
-    
-        console.warn(`registerFault( User "${username}" already exists. )`);
-          return null;
-    });
+            }
+            throw 'User already exists!';
+        })
+        .catch(err => {
+            console.log(err);
+            return util.createErrorResponse(res, 400, err);
+        });
 };
 
 // Handle view user info
 exports.view = function (req, res) {
-    User.findById(req.params.user_id, function (err, user) {
-        if (err)
-            res.send(err);
-        res.json({
-            message: 'User details loading..',
-            data: user
+    return User.findById(req.params.user_id)
+        .then((user) => {
+            console.log('User details loading..');
+            return util.createSuccessResponse(res, user, 200, "User details loading...");
+        })
+        .catch(err => {
+            console.log(err);
+            return util.createErrorResponse(res, 400, err);
         });
-    });
 };
 
 // Handle update user info
 exports.update = function (req, res) {
-    User.findById(req.params.user_id, function (err, user) {
-        if (err)
-            res.send(err);
-        user.username = req.body.name ? req.body.name : user.username;
-        user.email = req.body.email;
-        user.password = req.body.password;
-        user.phone = req.body.phone;
-        user.roles = req.body.roles.length > 0 ? req.body.roles : user.roles;
-        
-        // save the user and check for errors
-        user.save(function (err) {
-            if (err)
-                res.json(err);
-            res.json({
-                message: 'User Info updated',
-                data: user
-            });
+    return User.findById(req.params.user_id)
+        .then((user) => {
+            user.username = req.body.name ? req.body.name : user.username;
+            user.email = req.body.email;
+            user.phone = req.body.phone;
+            user.roles = req.body.role ? req.body.role : user.roles;
+
+            console.log(req.body);
+            
+            return bcrypt.hash(req.body.password, saltRounds)
+                .then((hash) => {
+                    // save the user and check for errors
+                    user.password = hash;
+
+                    return user.save();
+                })
+                .then((user) => {
+                    console.log('User Info updated');
+                    return util.createSuccessResponse(res, user, 200, "User Info updated");
+                });
+            
+        })
+        .catch(err => {
+            console.log(err);
+            return util.createErrorResponse(res, 400, err);
         });
-    });
 };
 // Handle delete user
 exports.delete = function (req, res) {
-    User.remove({
-        _id: req.params.user_id
-    }, function (err, user) {
-        if (err)
-            res.send(err);
-        res.json({
-            status: "success",
-            message: 'User deleted'
+    return User.remove({ _id: req.params.user_id })
+        .then(_id => {
+            console.log(_id);
+            console.log("User Deleted");
+            return util.createSuccessResponse(res, req.params.user_id, 200, "User Deleted");
+        })
+        .catch(err => {
+            console.log(err);
+            return util.createErrorResponse(res, 400, err);
         });
-    });
 };

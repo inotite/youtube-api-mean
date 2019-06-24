@@ -25,7 +25,7 @@ function initAuth(state: AuthState = initialState): AuthState {
 }
 
 function authSuccess(state: AuthState = initialState, data: Auth): AuthState {
-    localStorage.setItem('token', JSON.stringify(data));
+    localStorage.setItem('token', JSON.stringify({token: data.token}));
     state.token = data.token;
     return {
         ...state,

@@ -1,0 +1,73 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			<h1>Videos</h1>
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<!--<mat-list [@listAnimation]="prepareListState()" [@.disabled]="animationsDisabled">-->
+		<button mat-raised-button color="primary" type="button" (click)="onAddVideo($event)">Add Video</button>
+		<mat-list>
+			<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+ 
+				<!--- Note that these columns can be defined in any order.
+						The actual rendered columns are set as a property on the row definition" -->
+				
+				<!-- Position Column -->
+				<ng-container matColumnDef="id">
+					<mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
+				</ng-container>
+				
+				<!-- Name Column -->
+				<ng-container matColumnDef="name">
+					<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+				</ng-container>
+				
+				<!-- Weight Column -->
+				<ng-container matColumnDef="snippet">
+					<mat-header-cell *matHeaderCellDef> Snippet </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.snippet}} </mat-cell>
+				</ng-container>
+				
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="contentDetails">
+					<mat-header-cell *matHeaderCellDef> Content Details </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.contentDetails}} </mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="statistics">
+					<mat-header-cell *matHeaderCellDef> Statistics </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.statistics}} </mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="control">
+				  <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+				  <mat-cell *matCellDef="let element"> 
+					<span class="float-right">
+					  <button mat-icon-button color="primary" (click)="showDetails(element)" aria-label="icon-button with a list icon">
+						<mat-icon>list</mat-icon>
+					  </button>
+					  <button mat-icon-button color="accent" (click)="editVideo(element)" aria-label="icon-button with a edit icon">
+						<mat-icon>edit</mat-icon>
+					  </button>
+					  <button mat-icon-button (click)="deleteVideo(element)" color="warn" aria-label="icon-button with a delete icon">
+						<mat-icon>delete</mat-icon>
+					  </button>
+					</span>
+				  </mat-cell>
+				</ng-container>
+				
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+			</mat-table>
+			<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+		</mat-list>
+	</mat-card-content>
+</mat-card>

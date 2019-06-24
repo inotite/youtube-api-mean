@@ -41,64 +41,78 @@ function failedToRegister(res) {
 }
 
 // Handles the requests that attempt to authenticate the user.
-async function authenticate(req, res, next) {
+function authenticate(req, res, next) {
 
-  // Attempt to grab the username and password from the request.
-  let username = null;
-  let password = null;
-  try {
-    username = req.body.username;
-    password = req.body.password;
-    console.log(`authenticate( ${username} / ${password} )`);
-    if(!username || !password) {
-      invalidLoginRequest(res);
-      return;
+    // Attempt to grab the username and password from the request.
+    let username = null;
+    let password = null;
+    try {
+        username = req.body.username;
+        password = req.body.password;
+        console.log(`authenticate( ${username} / ${password} )`);
+        if(!username || !password) {
+            invalidLoginRequest(res);
+            return;
+        }
+    } catch (err) {
+        invalidLoginRequest(res);
+        return;
     }
-  } catch (err) {
-    invalidLoginRequest(res);
-    return;
-  }
 
-  // Attempt to authenticate the user.
-  var token = await authService.authenticate(username, password);
-  console.log(token);
-  if (!token) {
-    incorrectLoginCredentials(res);
-    return;
-  }
+    // Attempt to authenticate the user.
+    authService.authenticate(username, password)
+        .then((token) => {
+            console.log(token);
+            if (token) {
+                util.createSuccessResponse(res, token);
+                return null;
+            }
 
-  // We have a valid token so return a success response with a token.
-  util.createSuccessResponse(res, token);
+            throw "Token Not Created"
+        })
+        .catch(err => {
+            console.log(err);
+            incorrectLoginCredentials(res);
+            return null;
+        });
+
 }
 
 // Handles the requests that attempt to register a new user.
 function register(req, res, next) {
-  let username = null;
-  let password = null;
-  let email = null;
-  let phone = null;
-  try {
-    username = req.body.username;
-    password = req.body.password;
-    email = req.body.email;
-    phone = req.body.phone;
-    console.log(`register( Registering "${email}" with username and pw: ${username} / ${password} )`);
-    if(!username || !password || !email || !phone) {
-      invalidRegisterRequest(res);
-      return;
+    let username = null;
+    let password = null;
+    let email = null;
+    let phone = null;
+    try {
+        username = req.body.username;
+        password = req.body.password;
+        email = req.body.email;
+        phone = req.body.phone;
+        console.log(`register( Registering "${email}" with username and pw: ${username} / ${password} )`);
+        if(!username || !password || !email || !phone) {
+        invalidRegisterRequest(res);
+        return;
+        }
+    } catch (err) {
+        invalidRegisterRequest(res);
+        return;
     }
-  } catch (err) {
-    invalidRegisterRequest(res);
-    return;
-  }
 
-  // Attempt to register the user.
-  const token = authService.register(username, password, email, phone);
-  if (!token) {
-    failedToRegister(res);
-    return;
-  }
-
-  // We have a valid token so return a success response with a token.
-  util.createSuccessResponse(res, {accessToken: token});
+    // Attempt to register the user.
+    authService.register(username, password, email, phone)
+        .then(function(token){
+            // console.log(token);
+            if (!token) {
+                failedToRegister(res);
+                return;
+            }
+            
+            // We have a valid token so return a success response with a token.
+            util.createSuccessResponse(res, {accessToken: token});
+        })
+        .catch(function(error){
+            console.log(error);
+            return;
+        });
 }

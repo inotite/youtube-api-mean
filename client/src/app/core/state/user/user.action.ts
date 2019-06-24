@@ -7,9 +7,22 @@ export enum UserActionTypes {
     GetUsersFault = "[User] GetUsersFault",
 
     Select = "[User] Select",
+    SelectSuccess = "[User] SelectSucces",
+
+    SelectCurrentUser = "[User] SelectCurrentUser",
+
     Add = "[User] Add",
+    AddSuccess = "[User] AddSuccess",
+
     Update = "[User] Update",
+    UpdateSuccess = "[User] UpdateSuccess",
+
     Delete = "[User] Delete",
+    DeleteSuccess = "[User] DeleteSuccess",
+
+    NavigateToAdd = "[User] NavigateToAdd",
+    
+    FAILURE = "[User] FAILURE"
 }
 
 export class GetUsers implements Action {
@@ -33,10 +46,25 @@ export class GetUsersFault implements Action {
     }
 }
 
+export class SelectCurrentUser implements Action {
+    readonly type = UserActionTypes.SelectCurrentUser;
+
+    constructor(public payload: string) {
+    }
+}
+
 export class Select implements Action {
     readonly type = UserActionTypes.Select;
 
     constructor(public payload: string) {
+    }
+}
+
+export class SelectSuccess implements Action {
+    readonly type = UserActionTypes.SelectSuccess;
+
+    constructor(public payload: User) {
+
     }
 }
 
@@ -47,6 +75,14 @@ export class Add implements Action {
     }
 }
 
+export class AddSuccess implements Action {
+    readonly type = UserActionTypes.AddSuccess;
+
+    constructor(public payload: User) {
+
+    }
+}
+
 export class Update implements Action {
     readonly type = UserActionTypes.Update;
 
@@ -54,11 +90,39 @@ export class Update implements Action {
     }
 }
 
+export class UpdateSuccess implements Action {
+    readonly type = UserActionTypes.UpdateSuccess;
+
+    constructor(public payload: User) {
+
+    }
+}
+
 export class Delete implements Action {
     readonly type = UserActionTypes.Delete;
 
-    constructor(public payload: User) {
+    constructor(public payload: string) {
     }
+}
+
+export class DeleteSuccess implements Action {
+    readonly type = UserActionTypes.DeleteSuccess;
+    
+    constructor(public payload: string) {
+
+    }
+}
+
+export class NavigateToAdd implements Action {
+    readonly type = UserActionTypes.NavigateToAdd;
+
+    constructor() {
+    }
+}
+
+export class Failure implements Action {
+  readonly type = UserActionTypes.FAILURE;
+  constructor(public payload: {concern: 'CREATE' | 'PATCH' | 'SELECT' | 'UPDATE' | 'DELETE', error: any}) {}
 }
 
 export type UserActions =
@@ -69,4 +133,11 @@ export type UserActions =
     | Add
     | Update
     | Delete
+    | NavigateToAdd
+    | AddSuccess
+    | Failure
+    | SelectSuccess
+    | UpdateSuccess
+    | SelectCurrentUser
+    | DeleteSuccess
     ;

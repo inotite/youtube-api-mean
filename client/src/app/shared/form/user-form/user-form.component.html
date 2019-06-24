@@ -1,3 +1,34 @@
-<p>
-  user-form works!
-</p>
+<form (submit)="submit()"  class="form form-container" [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput placeholder="User Name" formControlName="username" type="text">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email" type="text">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Phone Number" formControlName="phone" type="tel">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Password" formControlName="password" type="password">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <mat-select formControlName="role">
+      <mat-option *ngFor="let role of role_list" [value]="role.value">
+        {{role.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+    <button mat-raised-button color="danger" class="btn btn-danger float-right" (click)="onCancel()">Cancel</button>
+    <span> </span>
+    <button mat-raised-button color="primary" class="btn btn-success float-right" type="submit" [disabled]="!form.valid">Save</button>
+  </div>
+
+</form>

@@ -1,13 +1,7 @@
 let router = require('express').Router();
 
-router.get('/', function(req, res) {
-    res.json({
-        status: 'API Its Working',
-        message: 'Welcome to RESTHub crafted with love!',
-    });
-});
-
 var userController = require('./controllers/user.controller.js');
+var videoController = require('./controllers/video.controller.js');
 
 router.route('/users')
     .get(userController.index)
@@ -18,5 +12,15 @@ router.route('/user/:user_id')
     .patch(userController.update)
     .put(userController.update)
     .delete(userController.delete);
+
+router.route('/videos')
+    .get(videoController.index)
+    .post(videoController.new);
+
+router.route('/video/:video_id')
+    .get(videoController.view)
+    .patch(videoController.update)
+    .put(videoController.update)
+    .delete(videoController.delete);
 
 module.exports = router;
