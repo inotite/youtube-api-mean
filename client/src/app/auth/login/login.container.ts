@@ -46,6 +46,7 @@ export class LoginContainer implements OnInit {
     public ngOnInit() {
         this.error$ = this.store$.pipe(select(fromState.getError));
         this.pending$ = this.store$.pipe(select(fromState.getPending));
+        localStorage.removeItem("token");
     }
 
     /**

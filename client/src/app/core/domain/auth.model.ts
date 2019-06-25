@@ -10,8 +10,10 @@ export interface RegisterCredentials extends LoginCredentials {
 
 export interface Auth extends LoginCredentials {
     token: string;
+    role: string[];
 }
 
 export interface AuthResponse {
     accessToken: string;
+    role: string[];
 }

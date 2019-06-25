@@ -25,7 +25,9 @@ function initAuth(state: AuthState = initialState): AuthState {
 }
 
 function authSuccess(state: AuthState = initialState, data: Auth): AuthState {
-    localStorage.setItem('token', JSON.stringify({token: data.token}));
+    localStorage.setItem('token', JSON.stringify({token: data.token, role: data.role}));
+    console.log(localStorage.getItem('token'));
+    console.log(data);
     state.token = data.token;
     return {
         ...state,
@@ -74,7 +76,11 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
     }
 }
 
-export const getToken = (state: AuthState) => localStorage.getItem('token');
+export const getToken = (state: AuthState) => {
+    if (localStorage.getItem("token") == undefined )
+        return false;
+    return JSON.parse(localStorage.getItem("token")).token;
+}
 export const getIsLoggedIn = (state: AuthState) => !!getToken(state);
 export const getError = (state: AuthState) => state.error;
 export const getPending = (state: AuthState) => state.pending;

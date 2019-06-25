@@ -7,11 +7,21 @@ export enum VideoActionTypes {
     GetVideosFault = "[Video] GetVideosFault",
 
     Select = "[Video] Select",
+    SelectSuccess = "[Video] SelectSucces",
+
+    SelectCurrentVideo = "[Video] SelectCurrentVideo",
+
     Add = "[Video] Add",
+    AddSuccess = "[Video] AddSuccess",
+
     Update = "[Video] Update",
+
     Delete = "[Video] Delete",
+    DeleteSuccess = "[Video] DeleteSuccess",
 
     NavigateToAdd = "[Video] NavigateToAdd",
+
+    FAILURE = "[Video] FAILURE",
 }
 
 export class GetVideos implements Action {
@@ -35,6 +45,13 @@ export class GetVideosFault implements Action {
     }
 }
 
+export class SelectCurrentVideo implements Action {
+    readonly type = VideoActionTypes.SelectCurrentVideo;
+
+    constructor(public payload: string) {
+    }
+}
+
 export class Select implements Action {
     readonly type = VideoActionTypes.Select;
 
@@ -42,8 +59,23 @@ export class Select implements Action {
     }
 }
 
+export class SelectSuccess implements Action {
+    readonly type = VideoActionTypes.SelectSuccess;
+
+    constructor(public payload: Video) {
+
+    }
+}
+
 export class Add implements Action {
     readonly type = VideoActionTypes.Add;
+
+    constructor(public payload: Video) {
+    }
+}
+
+export class AddSuccess implements Action {
+    readonly type = VideoActionTypes.AddSuccess;
 
     constructor(public payload: Video) {
     }
@@ -59,7 +91,15 @@ export class Update implements Action {
 export class Delete implements Action {
     readonly type = VideoActionTypes.Delete;
 
-    constructor(public payload: Video) {
+    constructor(public payload: string) {
+    }
+}
+
+export class DeleteSuccess implements Action {
+    readonly type = VideoActionTypes.DeleteSuccess;
+
+    constructor(public payload: string) {
+
     }
 }
 
@@ -68,6 +108,11 @@ export class NavigateToAdd implements Action {
 
     constructor() {
     }
+}
+
+export class Failure implements Action {
+  readonly type = VideoActionTypes.FAILURE;
+  constructor(public payload: {concern: 'CREATE' | 'PATCH' | 'SELECT' | 'UPDATE' | 'DELETE', error: any}) {}
 }
 
 export type VideoActions =
@@ -79,4 +124,9 @@ export type VideoActions =
     | Update
     | Delete
     | NavigateToAdd
+    | AddSuccess
+    | Failure
+    | DeleteSuccess
+    | SelectSuccess
+    | SelectCurrentVideo
     ;

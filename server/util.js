@@ -10,6 +10,7 @@ module.exports = {
     return res.status(status).json(body);
   },
   createErrorResponse: function(res, status, message) {
+    console.log("Errror!");
     return res.status(status).json({status, message});
   }
 };

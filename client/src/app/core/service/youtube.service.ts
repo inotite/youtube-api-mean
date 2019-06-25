@@ -21,11 +21,12 @@ export class YoutubeService {
       }));
   }
 
-  getInfoForVideo(video): Observable<Object> {
-    let url = 'https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails,status,statistics&key=' + this.apiKey + '&id=' + video.id.videoId;
+  getInfoForVideo(videoId): Observable<Object> {
+    let url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,liveStreamingDetails,status,statistics&key=' + this.apiKey + '&id=' + videoId;
 
     return this.http.get(url).pipe(map((res) => {
       return res;
     }));
+    // return this.http.get(url);
   }
 }

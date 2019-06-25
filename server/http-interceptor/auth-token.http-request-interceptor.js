@@ -5,6 +5,7 @@ const config = require("../config.json");
 
 function isAuthHeaderInvalid(req) {
   const authHeader = req.headers.authorization;
+  console.log(authHeader);
   return !authHeader || authHeader.split(" ")[0] !== "macOS";
 }
 
@@ -35,7 +36,7 @@ function verifyToken(token) {
 
 // Return the token value from the request header.
 function getTokenFromHeader(req) {
-  var token = JSON.parse(req.headers.authorization.split(" ")[1]).token;
+  var token = req.headers.authorization.split(" ")[1];
   return token;
 }
 

@@ -41,6 +41,52 @@ export class VideoEffect {
         )
     );
 
+    @Effect()
+    getVideo$: Observable<Action> = this.actions$.pipe(
+        ofType<VideoActions.Select>(VideoActions.VideoActionTypes.Select),
+        map(action => action.payload),
+        exhaustMap((_id) => this.videoService.getOne(_id).pipe(
+                mergeMap((video: Video) => [
+                    new VideoActions.SelectSuccess(video),
+                ]),
+                catchError((err: HttpErrorResponse) => of(new VideoActions.Failure({ concern: 'SELECT', error: err.message})))
+            )
+        )
+    );
+
+    /**
+     * Add User
+     */
+    @Effect()
+    addVideo$ = this.actions$.pipe(
+        ofType<VideoActions.Add>(VideoActions.VideoActionTypes.Add),
+        map(action  => action.payload),
+        exhaustMap( video => this.videoService.addOne(video).pipe(
+            mergeMap( (createdVideo: Video) => [
+                new VideoActions.AddSuccess(createdVideo),
+                new RouterActions.Back()
+            ]),
+            catchError(err => {
+                // alert(err.message);
+                return of(new VideoActions.Failure({concern: 'CREATE', error: err}));
+            })
+        )),
+    );
+
+    @Effect()
+    deleteVideo$: Observable<Action> = this.actions$.pipe(
+        ofType<VideoActions.Delete>(VideoActions.VideoActionTypes.Delete),
+        map(action => action.payload),
+        exhaustMap((_id) => this.videoService.deleteOne(_id).pipe(
+                mergeMap((_id: any) => [
+                    new VideoActions.DeleteSuccess(_id),
+                    new RouterActions.Go({ path: appRoutePaths.video })
+                ]),
+                catchError((err: HttpErrorResponse) => of(new VideoActions.Failure({ concern: 'DELETE', error: err.message})))
+            )
+        )
+    );
+
     /**
      * Routes the user to the add Video flow.
      */

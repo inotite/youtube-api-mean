@@ -1,0 +1,76 @@
+
+
+<div class="video-details-container" *ngIf="video">
+
+    <div class="card">
+      <div class="card-header">
+        Video
+      </div>
+      <div class="card-body">
+        <table>
+          <tr>
+            <td class="youtube-field">id:</td>
+            <td>{{video.video_id}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Title:</td>
+            <td>{{video.title}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Description:</td>
+            <td>{{video.description}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Tags:</td>
+            <td>{{video.tags}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Total Views:</td>
+            <td>{{video.total_views}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Likes:</td>
+            <td>{{video.likes}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Dislikes:</td>
+            <td>{{video.dislikes}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Current Viewers:</td>
+            <td>{{video.current_viewers}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Joining Viewers:</td>
+            <td>{{video.joining_viewers}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Leaving Viewers:</td>
+            <td>{{video.leaving_viewers}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Comment Counts:</td>
+            <td>{{video.comment_count}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Published at:</td>
+            <td>{{video.published_at}}</td>
+          </tr>
+          <tr>
+            <td class="youtube-field">Duration:</td>
+            <td>{{video.duration}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="card-footer text-muted">
+        <span class="float-md-right ">
+          <button (click)="edit.emit(video)" class="btn btn-sm btn-outline-primary"> EDIT</button>
+          <button (click)="remove.emit(video)" class="btn btn-sm btn-outline-danger"> DELETE</button>
+        </span>
+  
+      </div>
+    </div>
+  
+  </div>
+  
+  

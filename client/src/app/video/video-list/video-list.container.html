@@ -1,3 +1,5 @@
 <blog-video-list
-    [videos]="videos$" (addVideo)="onAddVideo(event$)">
+    [videos]="videos$" (addVideo)="onAddVideo($event)"
+    (remove)="deleteVideo($event)"
+    (show)="showDetails($event)">
 </blog-video-list>

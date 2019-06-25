@@ -17,7 +17,3 @@ export const defaultUser: User = {
     role: "USER",
     created_at: "",
 };
-
-export interface UserResponse extends User {
-    error_message: string;
-}

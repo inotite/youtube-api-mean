@@ -14,9 +14,9 @@
 						The actual rendered columns are set as a property on the row definition" -->
 				
 				<!-- Position Column -->
-				<ng-container matColumnDef="id">
-					<mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
+				<ng-container matColumnDef="video_id">
+					<mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.video_id}} </mat-cell>
 				</ng-container>
 				
 				<!-- Name Column -->
@@ -26,25 +26,53 @@
 				</ng-container>
 				
 				<!-- Weight Column -->
-				<ng-container matColumnDef="snippet">
-					<mat-header-cell *matHeaderCellDef> Snippet </mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.snippet}} </mat-cell>
+				<ng-container matColumnDef="title">
+					<mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
 				</ng-container>
 				
 				<!-- Symbol Column -->
-				<ng-container matColumnDef="contentDetails">
-					<mat-header-cell *matHeaderCellDef> Content Details </mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.contentDetails}} </mat-cell>
+				<ng-container matColumnDef="description">
+					<mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
 				</ng-container>
 
-				<ng-container matColumnDef="statistics">
-					<mat-header-cell *matHeaderCellDef> Statistics </mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.statistics}} </mat-cell>
+				<ng-container matColumnDef="tags">
+					<mat-header-cell *matHeaderCellDef> Tags </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.tags}} </mat-cell>
 				</ng-container>
 
-				<ng-container matColumnDef="status">
-					<mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-					<mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+				<ng-container matColumnDef="total_views">
+					<mat-header-cell *matHeaderCellDef> Total Views </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.total_views}} </mat-cell>
+				</ng-container>
+				
+				<!-- Name Column -->
+				<ng-container matColumnDef="likes">
+					<mat-header-cell *matHeaderCellDef> Likes </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.likes}} </mat-cell>
+				</ng-container>
+				
+				<!-- Weight Column -->
+				<ng-container matColumnDef="dislikes">
+					<mat-header-cell *matHeaderCellDef> Dislikes </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.dislikes}} </mat-cell>
+				</ng-container>
+				
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="current_viewers">
+					<mat-header-cell *matHeaderCellDef> Current Viewers </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="joining_viewers">
+					<mat-header-cell *matHeaderCellDef> Joining Viewers </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.joining_viewers}} </mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="leaving_viewers">
+					<mat-header-cell *matHeaderCellDef> Leaving Viewers </mat-header-cell>
+					<mat-cell *matCellDef="let element"> {{element.leaving_viewers}} </mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="control">

@@ -27,8 +27,10 @@ module.exports = {
                             console.info(`authenticateSuccess( ${username} )`);
                             var token = createToken({username, password});
                             console.log(token);
+                            console.log('A');
                             return {
                                 accessToken: token,
+                                role: user.roles
                             };
                         });
                 }

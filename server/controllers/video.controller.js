@@ -1,8 +1,5 @@
 const Video = require('../models/video.model');
-const bcrypt = require('bcrypt');
 const util = require('../util');
-
-const saltRounds = 10;
 
 // Handle index actions
 exports.index = function (req, res) {
@@ -17,15 +14,20 @@ exports.index = function (req, res) {
 
 // Handle create video actions
 exports.new = function (req, res) {
-    return Video.findOne({ name: req.body.name })
+    return Video.findOne({ video_id: req.body.video_id })
         .then((rvideo) => {
             if (!rvideo) {
                 var video = new Video();
-                video.name = req.body.name;
-                video.snippet = req.body.snippet;
-                video.contentDetails = req.body.contentDetails;
-                video.statistics = req.body.statistics;
-                video.status = req.body.status;
+                video.title = req.body.title;
+                video.description = req.body.description;
+                video.tags = req.body.tags;
+                video.total_views = req.body.total_views;
+                video.likes = req.body.likes;
+                video.dislikes = req.body.dislikes;
+                video.video_id = req.body.video_id;
+                video.comment_count = req.body.comment_count;
+                video.published_at = req.body.published_at;
+                video.duration = req.body.duration;
 
                 return video.save();
             }
@@ -58,11 +60,15 @@ exports.view = function (req, res) {
 exports.update = function (req, res) {
     return Video.findById(req.params.video_id)
         .then((video) => {
-            video.name = req.body.name;
-            video.snippet = req.body.snippet;
-            video.contentDetails = req.body.contentDetails;
-            video.statistics = req.body.statistics;
-            video.status = req.body.status;
+            video.title = req.body.title;
+            video.description = req.body.description;
+            video.tags = req.body.tags;
+            video.total_views = req.body.total_views;
+            video.likes = req.body.likes;
+            video.dislikes = req.body.dislikes;
+            video.comment_count = req.body.comment_count;
+            video.published_at = req.body.published_at;
+            video.duration = req.body.duration;
 
             console.log(req.body);
             return video.save();

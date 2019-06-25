@@ -48,7 +48,7 @@ const routes: Routes = [
     {
         path: "**",
         pathMatch: "full",
-        redirectTo: appRoutePaths.user
+        redirectTo: appRoutePaths.video
     }
 ];
 

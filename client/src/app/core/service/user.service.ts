@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { User, UserResponse } from '../domain/user.model';
+import { User } from '../domain/user.model';
 import { ApiEndpointService } from './api-endpoint.service';
 
 @Injectable({
@@ -98,7 +98,7 @@ export class UserService {
         console.info(`add( Add a new user from API "${url}". )`);
 
         return this.http.post<User>(url, user ).pipe(
-            map((response: UserResponse): User => {
+            map((response: User) => {
                 console.log(response);
                 console.info(`addSuccess( response: ${response})`);
                 return response;

@@ -43,9 +43,11 @@ export class AuthService {
         return this.http.post(url, params).pipe(
             map((response: AuthResponse): Auth => {
                 console.info(`loginSuccess( Received access token: ${response.accessToken} )`);
+                console.log(response.role);
                 return {
                     ...params,
-                    token: response.accessToken
+                    token: response.accessToken,
+                    role: response.role
                 };
             }),
             catchError((fault: HttpErrorResponse) => {
@@ -73,7 +75,8 @@ export class AuthService {
                 console.info(`registerSuccess( Received access token: ${response.accessToken} )`);
                 return {
                     ...params,
-                    token: response.accessToken
+                    token: response.accessToken,
+                    role: response.role
                 };
             }),
             catchError((fault: HttpErrorResponse) => {

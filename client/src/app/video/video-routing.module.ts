@@ -4,6 +4,8 @@ import {
     Routes
 } from "@angular/router";
 import { VideoListContainer } from "./video-list/video-list.container";
+import { VideoNewContainer } from './video-new/video-new.container';
+import { VideoDetailsContainer } from './video-details/video-details.container';
 
 const routes: Routes = [
     {
@@ -12,7 +14,11 @@ const routes: Routes = [
     },
     {
         path: "new",
-        component: VideoListContainer
+        component: VideoNewContainer
+    },
+    {
+        path: ":videoId",
+        component: VideoDetailsContainer
     }
 ];
 

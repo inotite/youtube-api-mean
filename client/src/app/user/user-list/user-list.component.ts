@@ -15,7 +15,7 @@ export class UserListComponent implements OnInit {
   public users: Observable<User[]>;
 
   public trackUser: Function = trackByFn;
-  displayedColumns: string[] = ['username', 'email', 'phone', 'roles', 'created_at', 'control'];
+  displayedColumns: string[] = ['username', 'email', 'phone', 'roles', 'created_at'];
   
   @Input()
   public dataSource;
@@ -31,7 +31,8 @@ export class UserListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-
+    if ( JSON.parse(localStorage.getItem("token")).role[0] == "ADMIN" )
+      this.displayedColumns.push('control');
     this.users.subscribe(users => {
       this.dataSource = new MatTableDataSource<User>(users);
       this.dataSource.paginator = this.paginator;

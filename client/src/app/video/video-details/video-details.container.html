@@ -1,0 +1,5 @@
+<app-video-details
+        [video]="video$ | async"
+        (edit)="editVideo($event)"
+        (remove)="deleteVideo($event)"
+></app-video-details>

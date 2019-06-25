@@ -9,6 +9,7 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { UserFormComponent } from './form/user-form/user-form.component';
 import { RouterModule } from '@angular/router';
+import { VideoAddFormComponent } from './form/video-add-form/video-add-form.component';
 
 const MODULES = [
     // Angular Modules
@@ -25,8 +26,8 @@ const MODULES = [
 
 @NgModule({
     imports: MODULES,
-    exports: [ MODULES, HeaderComponent, SidenavListComponent, UserFormComponent ],
-    declarations: [HeaderComponent, SidenavListComponent, UserFormComponent]
+    exports: [ MODULES, HeaderComponent, SidenavListComponent, UserFormComponent, VideoAddFormComponent ],
+    declarations: [HeaderComponent, SidenavListComponent, UserFormComponent, VideoAddFormComponent]
 })
 export class SharedModule {
 }

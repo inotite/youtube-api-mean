@@ -43,9 +43,12 @@ export class AuthEffect {
             this.authService.login(creds).pipe(
                 mergeMap((data: Auth) => [
                     new AuthActions.LoginSuccess(data),
-                    new RouterActions.Go({ path: appRoutePaths.user })
+                    new RouterActions.Go({ path: appRoutePaths.video })
                 ]),
-                catchError((err: HttpErrorResponse) => of(new AuthActions.LoginFault(err.error.message)))
+                catchError((err: HttpErrorResponse) => {
+                    console.log("Hey!")
+                    return of(new AuthActions.LoginFault(err.error.message));
+                })
             )
         )
     );
@@ -60,7 +63,7 @@ export class AuthEffect {
             this.authService.register(creds).pipe(
                 mergeMap((data: Auth) => [
                     new AuthActions.RegisterSuccess(data),
-                    new RouterActions.Go({ path: appRoutePaths.user })
+                    new RouterActions.Go({ path: appRoutePaths.video })
                 ]),
                 catchError((err: HttpErrorResponse) => of(new AuthActions.RegisterFault(err.error.message)))
             )
@@ -73,6 +76,20 @@ export class AuthEffect {
     @Effect()
     navigateToLogin$: Observable<Action> = this.actions$.pipe(
         ofType<AuthActions.NavigateToLogin>(AuthActionTypes.NavigateToLogin),
+        mergeMap((action) => {
+            return [
+                new AuthActions.ResetAuthError(),
+                new RouterActions.Go({ path: appRoutePaths.login })
+            ];
+        })
+    );
+
+    /**
+     * Routes the user to the login flow.
+     */
+    @Effect()
+    loginFault$: Observable<Action> = this.actions$.pipe(
+        ofType<AuthActions.RegisterFault>(AuthActionTypes.RegisterFault),
         mergeMap((action) => {
             return [
                 new AuthActions.ResetAuthError(),

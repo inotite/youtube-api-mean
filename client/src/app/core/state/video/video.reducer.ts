@@ -42,14 +42,26 @@ export const initialState: VideoState = adapter.getInitialState({
 export function videoReducer(state = initialState, action: VideoActions): VideoState {
     switch (action.type) {
         case VideoActionTypes.Select: {
+            console.log("reducer: ", action.payload);
             return Object.assign({}, state, { selectedVideoId: action.payload });
         }
+
+        case VideoActionTypes.SelectCurrentVideo: {
+            return {
+              ...state,
+              selectedVideoId: action.payload
+            };
+          }
 
         case VideoActionTypes.GetVideosSuccess: {
             return adapter.addAll(action.payload, state);
         }
 
-        case VideoActionTypes.Add: {
+        case VideoActionTypes.SelectSuccess: {
+            return adapter.addOne(action.payload, state);
+        }
+
+        case VideoActionTypes.AddSuccess: {
             return adapter.addOne(action.payload, state);
         }
 
@@ -58,7 +70,7 @@ export function videoReducer(state = initialState, action: VideoActions): VideoS
         }
 
         case VideoActionTypes.Delete: {
-            return adapter.removeOne(action.payload._id, state);
+            return adapter.removeOne(action.payload, state);
         }
 
         default:

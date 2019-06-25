@@ -1,0 +1,13 @@
+<form (submit)="submit()"  class="form form-container" [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput placeholder="Video Id" formControlName="video_id" type="text">
+  </mat-form-field>
+
+  <div>
+    <button mat-raised-button color="danger" class="btn btn-danger float-right" (click)="onCancel()">Cancel</button>
+    <span> </span>
+    <button mat-raised-button color="primary" class="btn btn-success float-right" type="submit" [disabled]="!form.valid">Save</button>
+  </div>
+
+</form>

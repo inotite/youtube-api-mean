@@ -36,8 +36,20 @@ export class VideoListContainer implements OnInit {
         this.store$.dispatch(new VideoAction.GetVideos());
     }
 
-    public onAddVideo(event$: any) {
+    public onAddVideo($event: any) {
         console.log("VIDEO: Container: onAddVideo()");
         this.store$.dispatch(new VideoAction.NavigateToAdd());
+    }
+
+    public deleteVideo(video: Video) {
+        console.log("VIDEO: Container: deleteVideo()");
+        if (confirm('Are you sure?'))
+            this.store$.dispatch(new VideoAction.Delete(video._id));
+    }
+
+    public showDetails(video: Video) {
+        console.log("VIDEO: Container: showDetails()");
+        this.store$.dispatch(new VideoAction.Select(video._id));
+        this.router.navigate(['/video', video._id]);
     }
 }
