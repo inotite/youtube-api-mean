@@ -15,6 +15,10 @@ let VideoSchema = new Schema({
     comment_count: { type: Number },
     published_at: { type: String },
     duration: { type: String },
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = mongoose.model('Video', VideoSchema);
