@@ -15,7 +15,7 @@
   },
   "private": true,
   "dependencies": {
-    "bcrypt": "^3",
+    "bcrypt": "^5",
     "core-js": "^2.5.4",
     "express": "^4.17.1",
     "hammerjs": "^2.0.8",
